@@ -1,29 +1,26 @@
-import React, { useContext, useState } from 'react'
-import { Circles } from 'react-loader-spinner'
-import { HeaderContext } from '../layout/Header';
+import React, { useContext } from 'react';
+import { CircularProgress, Box, Skeleton } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box, Skeleton } from '@mui/material';
+import { HeaderContext } from '../layout/Header';
 
 export default function Loader({ showLoader }) {
-    const { currentTheme } = useContext(HeaderContext);
-    const darkTheme = createTheme({ palette: { mode: currentTheme } });
+  const { currentTheme } = useContext(HeaderContext);
+  const darkTheme = createTheme({ palette: { mode: currentTheme } });
+
   return (
-   <>
-   <ThemeProvider theme={darkTheme}>
-    {showLoader ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
-        <Circles
-            height={50}
-            width={50}
-            color="#4fa94d"
-            ariaLabel="loading-indicator"
-        />
-        </div>: <Box>
+    <ThemeProvider theme={darkTheme}>
+      {showLoader ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+          <CircularProgress color="primary" size={50} />
+        </Box>
+      ) : (
+        <Box>
           <Skeleton variant="text" height={40} />
           <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
           <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
           <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
-        </Box>}
-   </ThemeProvider>
-   </>
-  )
+        </Box>
+      )}
+    </ThemeProvider>
+  );
 }
