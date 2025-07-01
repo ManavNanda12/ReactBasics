@@ -1,0 +1,117 @@
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Paper, Button,
+  TextField, Typography, Skeleton, Box
+} from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { HeaderContext } from '../layout/Header';
+import { useTranslation } from 'react-i18next';
+
+export default function CrudList(props) {
+  const userList = props.UserData || [];
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true); // Loading state
+
+  const { currentTheme, lang } = useContext(HeaderContext);
+  const darkTheme = createTheme({ palette: { mode: currentTheme } });
+  const { t } = useTranslation();
+
+  // Filter users based on search input
+  const filteredUsers = userList.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Simulate loading for 2 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const deleteUser = (user) => {
+    const filteredUserList = userList.filter(u => u.id !== user.id);
+    props.setUserList(filteredUserList);
+  };
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <Typography variant="h5" align="center" gutterBottom>
+        {t("userList")}
+      </Typography>
+      <hr />
+
+      {loading ? (
+        <Box>
+          <Skeleton variant="text" height={40} />
+          <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
+          <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
+          <Skeleton variant="rectangular" height={50} sx={{ my: 1 }} />
+        </Box>
+      ) : (
+        <>
+          {userList.length > 0 && (
+            <div className='mb-2'>
+              <TextField
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder={t("searchByNameOrEmail")}
+                margin="dense"
+              />
+            </div>
+          )}
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t("name")}</TableCell>
+                  <TableCell>{t("email")}</TableCell>
+                  <TableCell align="right">{t("actions")}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredUsers.length > 0 ? (
+                  filteredUsers.map(user => (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell align="right">
+                        <Button
+                          variant="contained"
+                          color="warning"
+                          size="small"
+                          onClick={() => props.setUserForm(user)}
+                          sx={{ mr: 1 }}
+                        >
+                          {t("edit")}
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          size="small"
+                          onClick={() => deleteUser(user)}
+                        >
+                          {t("delete")}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={3} align="center">
+                      {t("noUsersFound")}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
+    </ThemeProvider>
+  );
+}

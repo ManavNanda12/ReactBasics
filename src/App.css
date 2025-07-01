@@ -1,0 +1,16 @@
+.word-wrap {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  white-space: pre-wrap !important;
+  max-width: 50ch !important;
+  word-break: break-all !important;
+}
+
+.custom-dark .form-control{
+  background-color: transparent !important;
+}
+
+.MuiAutocomplete-root {
+  width: 100% !important;
+}
