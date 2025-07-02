@@ -71,6 +71,11 @@ export default function Header() {
                       {t("currencyConverter")}
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className={currentPath === "/contactus" ? "nav-link active" : "nav-link"} to="/contactus">
+                      {t("contactUs")}
+                    </Link>
+                  </li>
                 </ul>
 
                 {/* Right controls (language + theme) */}

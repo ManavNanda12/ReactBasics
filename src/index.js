@@ -16,6 +16,7 @@ const CurrencyConverter = lazy(() => import("./pages/CurrencyConverter"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const Login = lazy(() => import("./pages/Login"));
 const Home = lazy(() => import("./pages/Home"));
+const ContactUs = lazy(() => import("./pages/ContactUs"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 serviceWorkerRegistration.register();
 root.render(
@@ -29,6 +30,7 @@ root.render(
           <Route path="crud" element={<PrivateRoute><Crud /></PrivateRoute>} />
           <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="currencyconvertor" element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
+          <Route path="contactus" element={<PrivateRoute><ContactUs /></PrivateRoute>} />
           <Route path="*" element={<PublicRoute><PageNotFound /></PublicRoute>} />
         </Route>
       </Routes>

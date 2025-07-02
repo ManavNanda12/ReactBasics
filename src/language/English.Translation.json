@@ -30,7 +30,15 @@
     "delete": "Delete",
     "home": "Home",
     "bannerTitle": "John Doe",
-    "bannerDescription": "React Developer passionate about building fast,\nresponsive, and modern web applications that\nenhance user experience and performance."
-
+    "bannerDescription": "React Developer passionate about building fast,\nresponsive, and modern web applications that\nenhance user experience and performance.",
+    "contactUs": "Contact Us",
+    "enterContactNo": "Enter Contact No",
+    "enterMessage": "Enter Message",
+    "contactNo": "Contact No",
+    "message": "Message",
+    "contactNoRequired": "Contact No is required",
+    "messageRequired": "Message is required",
+    "invalidEmail": "Invalid email address",
+    "contactNoInvalid": "Invalid contact number"
   }
   
