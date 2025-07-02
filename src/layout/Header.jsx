@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { createTheme } from "@mui/material/styles";
-import i18n from "../language/I18NConfig";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -38,7 +37,7 @@ export default function Header() {
           <nav className={currentTheme === "light" ? "navbar navbar-expand-lg navbar-light bg-light" : "navbar navbar-expand-lg navbar-dark bg-dark"}>
             <div className="container-fluid">
               <Link className="navbar-brand" to="/">
-                {t("navbar")}
+                {t("johndoe")}
               </Link>
 
               <button
