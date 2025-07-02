@@ -21,7 +21,7 @@ function App() {
     <HeaderContext.Provider value={{currentTheme, setCurrentTheme, lang, setLang}}>
       <div className="App">
         <Header />
-        <div className="container main-content">
+        <div className="container main-content mt-2">
           <Outlet />
           <ToastContainer />
         </div>

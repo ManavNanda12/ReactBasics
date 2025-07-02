@@ -27,6 +27,10 @@
     "userList": "User List",
     "actions": "Actions",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "home": "Home",
+    "bannerTitle": "John Doe",
+    "bannerDescription": "React Developer passionate about building fast,\nresponsive, and modern web applications that\nenhance user experience and performance."
+
   }
   

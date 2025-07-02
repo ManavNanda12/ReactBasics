@@ -1,0 +1,37 @@
+.banner-drop {
+  padding: 40px 20px;
+  animation: dropIn 1s ease-out forwards;
+  transform: translateY(-200px);
+  opacity: 0;
+  border-radius: 10px;
+  margin: 40px auto;
+}
+
+@keyframes dropIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.banner-text {
+  flex: 0 0 65%;
+}
+
+.banner-image {
+  flex: 0 0 35%;
+  text-align: right;
+}
+
+.banner-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

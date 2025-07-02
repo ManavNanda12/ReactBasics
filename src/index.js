@@ -6,28 +6,33 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Crud from "./pages/Crud";
-import CurrencyConverter from "./pages/CurrencyConverter";
-import PageNotFound from "./pages/PageNotFound";
-import Login from "./pages/Login";
+import { lazy, Suspense } from "react";
 import { AuthProvider } from "./guard/AuthProvider";
 import PrivateRoute from "./guard/PrivateRoute";
 import PublicRoute from "./guard/PublicRoute";
 import * as serviceWorkerRegistration from './serviceworker';
+const Crud = lazy(() => import("./pages/Crud"));
+const CurrencyConverter = lazy(() => import("./pages/CurrencyConverter"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const Login = lazy(() => import("./pages/Login"));
+const Home = lazy(() => import("./pages/Home"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 serviceWorkerRegistration.register();
 root.render(
   <React.StrictMode>
     <AuthProvider>
     <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
+          <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="crud" element={<PrivateRoute><Crud /></PrivateRoute>} />
           <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="currencyconvertor" element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
           <Route path="*" element={<PublicRoute><PageNotFound /></PublicRoute>} />
         </Route>
       </Routes>
+      </Suspense>
     </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>

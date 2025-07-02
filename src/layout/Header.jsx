@@ -57,12 +57,17 @@ export default function Header() {
                 {/* Left nav links */}
                 <ul className="navbar-nav">
                   <li className="nav-item">
+                    <Link className={currentPath === "/" ? "nav-link active" : "nav-link"} to="/">
+                      {t("home")}
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className={currentPath === "/crud" ? "nav-link active" : "nav-link"} to="/crud">
                       {t("crud")}
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className={currentPath === "/" ? "nav-link active" : "nav-link"} to="/">
+                    <Link className={currentPath === "/currencyconvertor" ? "nav-link active" : "nav-link"} to="/currencyconvertor">
                       {t("currencyConverter")}
                     </Link>
                   </li>
