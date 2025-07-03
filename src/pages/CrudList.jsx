@@ -7,31 +7,36 @@ import {
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { HeaderContext } from '../layout/Header';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-export default function CrudList(props) {
-  const userList = props.UserData || [];
+export default function CrudList({ UserData = [], setUserForm, fetchUsers }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
-  const { currentTheme, lang } = useContext(HeaderContext);
+  const { currentTheme } = useContext(HeaderContext);
   const darkTheme = createTheme({ palette: { mode: currentTheme } });
   const { t } = useTranslation();
 
-  // Filter users based on search input
-  const filteredUsers = userList.filter(user =>
+  const filteredUsers = UserData.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Simulate loading for 2 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [UserData]);
 
-  const deleteUser = (user) => {
-    const filteredUserList = userList.filter(u => u.id !== user.id);
-    props.setUserList(filteredUserList);
+  const deleteUser = async (user) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/users/${user._id}`);
+      toast.success("User deleted");
+      fetchUsers(); // Refresh list from DB
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete user");
+    }
   };
 
   return (
@@ -50,7 +55,7 @@ export default function CrudList(props) {
         </Box>
       ) : (
         <>
-          {userList.length > 0 && (
+          {UserData.length > 0 && (
             <div className='mb-2'>
               <TextField
                 fullWidth
@@ -76,7 +81,7 @@ export default function CrudList(props) {
               <TableBody>
                 {filteredUsers.length > 0 ? (
                   filteredUsers.map(user => (
-                    <TableRow key={user.id}>
+                    <TableRow key={user._id}>
                       <TableCell>{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
                       <TableCell align="right">
@@ -84,7 +89,7 @@ export default function CrudList(props) {
                           variant="contained"
                           color="warning"
                           size="small"
-                          onClick={() => props.setUserForm(user)}
+                          onClick={() => setUserForm(user)}
                           sx={{ mr: 1 }}
                         >
                           {t("edit")}
