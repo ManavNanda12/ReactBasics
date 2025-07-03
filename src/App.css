@@ -14,3 +14,11 @@
 .MuiAutocomplete-root {
   width: 100% !important;
 }
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Keep it above other content */
+  background-color: white; /* or match your theme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* optional for visual separation */
+}

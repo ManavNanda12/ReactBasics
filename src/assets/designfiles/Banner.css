@@ -35,3 +35,20 @@
   height: auto;
   border-radius: 8px;
 }
+
+/* Animation: Bottom to Top */
+.rise-up {
+  padding: 40px 20px;
+  animation: riseIn 1s ease-out forwards;
+  transform: translateY(200px); /* start below */
+  opacity: 0;
+  border-radius: 10px;
+  margin: 40px auto;
+}
+
+@keyframes riseIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
