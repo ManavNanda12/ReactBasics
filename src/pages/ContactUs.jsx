@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import Loader from '../common/loader';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 export default function ContactUs() {
   const { t } = useTranslation();
   const { currentTheme } = useContext(HeaderContext);
@@ -26,7 +27,7 @@ export default function ContactUs() {
     formState: { errors, isValid }
   } = useForm({ mode: 'onChange' });
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
     setLoading(true);
     const contactData = {
@@ -36,29 +37,41 @@ export default function ContactUs() {
       message: data.message,
       title: data.title || 'Contact Request'
     };
-    emailjs.send(
-      'service_az3inmz',
-      'template_zrr4ais',
-      contactData,
-      'FtmuxWM4nlEWwWmX7'
-    )
-    .then((result) => {
-      toast("Thank you! We'll get back to you soon.");
-      setTimeout(() => {
-        const replyData = {
-          name: data.name,
-          email: data.email,
-          title: data.title || 'Contact Request'
-        };
-        replyToCustomer(replyData);
-      }, 5000);
-      reset();
-      setLoading(false);
-    })
-    .catch((error) => {
-      toast("Failed to send email.");
-      setLoading(false);
-    });
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/contactedUsers/add`, contactData);
+      if(res.success){
+        emailjs.send(
+          'service_az3inmz',
+          'template_zrr4ais',
+          contactData,
+          'FtmuxWM4nlEWwWmX7'
+        )
+        .then((result) => {
+          toast("Thank you! We'll get back to you soon.");
+          setTimeout(() => {
+            const replyData = {
+              name: data.name,
+              email: data.email,
+              title: data.title || 'Contact Request'
+            };
+            replyToCustomer(replyData);
+          }, 5000);
+          reset();
+          setLoading(false);
+        })
+        .catch((error) => {
+          toast("Failed to send email.");
+          setLoading(false);
+        });
+      }
+      else{
+        toast.error(res.data.message);
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to send email.");
+    }
   };
   
   const replyToCustomer = (replyData) => {
