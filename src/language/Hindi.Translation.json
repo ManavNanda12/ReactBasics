@@ -39,5 +39,11 @@
     "contactNoRequired": "संपर्क नंबर आवश्यक है",
     "messageRequired": "माहिती आवश्यक है",
     "invalidEmail": "अमान्य ईमेल पता",
-    "contactNoInvalid": "अमान्य संपर्क नंबर"
-    }
+    "contactNoInvalid": "अमान्य संपर्क नंबर",
+    "allRightsReserved": "सभी अधिकार रिश्ते",
+    "trustedByCommunity": "हमारे समुदाय की भरोसेमंदी",
+    "happyClients": "खुश ग्राहक",
+    "trustedDescription": "प्रत्येक ग्राहक एक महत्वपूर्ण संवाद है। हम प्रत्येक संदेश को जल्दी और मददगार जवाब देने का लक्ष्य रखते हैं।",
+    "voiceForward": "इससे पहले {count}+ संपर्क अनुरोध तक, आपकी आवाज हमें आगे बढ़ाती आई है।",
+    "contactedUsers": "संपर्क करने वाले उपयोगकर्ताओं"
+}

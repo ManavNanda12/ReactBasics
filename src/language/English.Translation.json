@@ -39,6 +39,10 @@
     "contactNoRequired": "Contact No is required",
     "messageRequired": "Message is required",
     "invalidEmail": "Invalid email address",
-    "contactNoInvalid": "Invalid contact number"
+    "contactNoInvalid": "Invalid contact number",
+    "allRightsReserved": "All rights reserved",
+    "trustedByCommunity": "Trusted by Our Community",
+    "happyClients": "Happy Clients",
+    "trustedDescription": "Each client represents a conversation that matters. We aim to deliver quick and\nhelpful responses to every message we receive.",
+    "voiceForward": "With {count}+ contact requests so far, your voice truly drives us forward."
   }
-  

@@ -18,7 +18,18 @@
 .sticky-header {
   position: sticky;
   top: 0;
-  z-index: 1000; /* Keep it above other content */
-  background-color: white; /* or match your theme */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* optional for visual separation */
+  z-index: 1000; 
+  background-color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 30px;        
 }

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "./common/ScrollToTop";
+import Footer from "./layout/Footer";
 
 function App() {
   const getInitialTheme = () => {
@@ -19,20 +20,22 @@ function App() {
 
   return (
     <HeaderContext.Provider
-      value={{ currentTheme, setCurrentTheme, lang, setLang }}
-    >
-      <div className="App">
-        <div className="sticky-header">
-          <Header />
-        </div>
-
-        <div className="container main-content mt-2">
-          <Outlet />
-          <ToastContainer />
-        </div>
-        <ScrollToTop />
+    value={{ currentTheme, setCurrentTheme, lang, setLang }}
+  >
+    <div className="app-wrapper">
+      <div className="sticky-header">
+        <Header />
       </div>
-    </HeaderContext.Provider>
+
+      <main className="main-content container main-content mt-2">
+        <Outlet />
+        <ToastContainer />
+      </main>
+
+      <Footer />
+      <ScrollToTop />
+    </div>
+  </HeaderContext.Provider>
   );
 }
 

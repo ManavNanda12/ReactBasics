@@ -76,6 +76,7 @@ export default function Header() {
                       {t("contactUs")}
                     </Link>
                   </li>
+                  
                 </ul>
 
                 {/* Right controls (language + theme) */}

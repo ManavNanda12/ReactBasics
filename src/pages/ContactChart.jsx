@@ -11,17 +11,19 @@ import { HeaderContext } from '../layout/Header';
 import '../assets/designfiles/Banner.css';
 import axios from 'axios';
 import Loader from '../common/loader';
+import { useTranslation } from 'react-i18next';
 
 export default function ContactChart() {
     const { currentTheme } = useContext(HeaderContext);
     const theme = createTheme({ palette: { mode: currentTheme } });
-    let [data, setData] = useState([]);
+    const [data, setData] = useState([]);
+    const { t } = useTranslation();
     const fetchContactedUsers = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/contactedUsers/get`);
             if (res.data.length > 0) {
                 let contactData = {
-                    name: 'Contacted Users',
+                    name: t('contactedUsers'),
                     count: res.data.length,
                     fill: theme.palette.primary.main,
                 };
@@ -97,7 +99,7 @@ export default function ContactChart() {
                                         {data[0].count}+
                                     </Typography>
                                     <Typography variant="caption" color="text.secondary">
-                                        Happy Clients
+                                        {t('happyClients')}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -111,14 +113,13 @@ export default function ContactChart() {
                             }}
                         >
                             <Typography variant="h5" fontWeight="bold" gutterBottom>
-                                Trusted by Our Community
+                                {t('trustedByCommunity')}
                             </Typography>
                             <Typography variant="body1" color="text.secondary" paragraph>
-                                Each client represents a conversation that matters. We aim to deliver quick and
-                                helpful responses to every message we receive.
+                                {t('trustedDescription')}
                             </Typography>
                             <Typography variant="body1" color="text.secondary">
-                                With {data[0].count}+ contact requests so far, your voice truly drives us forward.
+                                {t('voiceForward', { count: data[0].count })}
                             </Typography>
                         </Box>
                     </Box>
