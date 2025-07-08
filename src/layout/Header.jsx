@@ -11,15 +11,17 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import "../assets/designfiles/Header.css";
 
 export const HeaderContext = createContext();
 
 export default function Header() {
-  // Common Properties
-  let currentRoute = useLocation();
-  let currentPath = currentRoute.pathname;
-  const { currentTheme, setCurrentTheme , lang, setLang } = useContext(HeaderContext);
+  const currentRoute = useLocation();
+  const currentPath = currentRoute.pathname;
+
+  const { currentTheme, setCurrentTheme, lang, setLang } = useContext(HeaderContext);
   const { t, i18n } = useTranslation();
+
   const theme = createTheme({ palette: { mode: currentTheme } });
 
   const handleChange = (event) => {
@@ -31,11 +33,12 @@ export default function Header() {
   useEffect(() => {
     i18n.changeLanguage(lang);
   }, [lang]);
+
   return (
     <>
-      {currentPath == "/login" ? <></> :
+      {currentPath === "/login" ? null : (
         <ThemeProvider theme={theme}>
-          <nav className={currentTheme === "light" ? "navbar navbar-expand-lg navbar-light bg-light" : "navbar navbar-expand-lg navbar-dark bg-dark"}>
+          <nav className={`navbar navbar-expand-lg ${currentTheme === "light" ? "navbar-light bg-light" : "navbar-dark bg-dark"} animated-navbar`}>
             <div className="container-fluid">
               <Link className="navbar-brand" to="/">
                 {t("johndoe")}
@@ -57,35 +60,35 @@ export default function Header() {
                 {/* Left nav links */}
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link className={currentPath === "/" ? "nav-link active" : "nav-link"} to="/">
+                    <Link className={`nav-link ${currentPath === "/" ? "active" : ""}`} to="/">
                       {t("home")}
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className={currentPath === "/crud" ? "nav-link active" : "nav-link"} to="/crud">
+                    <Link className={`nav-link ${currentPath === "/crud" ? "active" : ""}`} to="/crud">
                       {t("crud")}
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className={currentPath === "/currencyconvertor" ? "nav-link active" : "nav-link"} to="/currencyconvertor">
+                    <Link className={`nav-link ${currentPath === "/currencyconvertor" ? "active" : ""}`} to="/currencyconvertor">
                       {t("currencyConverter")}
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className={currentPath === "/contactus" ? "nav-link active" : "nav-link"} to="/contactus">
+                    <Link className={`nav-link ${currentPath === "/contactus" ? "active" : ""}`} to="/contactus">
                       {t("contactUs")}
                     </Link>
                   </li>
-                  
                 </ul>
 
-                {/* Right controls (language + theme) */}
+                {/* Right controls */}
                 <div className="d-flex align-items-center">
                   <FormControl size="small" sx={{ minWidth: 120 }}>
                     <Select
                       id="lang-select"
                       value={lang}
                       onChange={handleChange}
+                      className="lang-animate"
                     >
                       <MenuItem value="en">English</MenuItem>
                       <MenuItem value="hi">हिंदी</MenuItem>
@@ -103,6 +106,7 @@ export default function Header() {
                         localStorage.setItem("theme", newTheme);
                       }}
                       color="inherit"
+                      className="theme-icon-animate"
                     >
                       {currentTheme === "light" ? (
                         <Brightness4Icon style={{ color: "black" }} />
@@ -111,15 +115,12 @@ export default function Header() {
                       )}
                     </IconButton>
                   </Tooltip>
-
                 </div>
               </div>
             </div>
           </nav>
-
         </ThemeProvider>
-      }
-
+      )}
     </>
   );
 }

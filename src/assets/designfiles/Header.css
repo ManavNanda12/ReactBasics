@@ -1,0 +1,54 @@
+/* Animation on load */
+.animated-navbar {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth link hover effect */
+.navbar-nav .nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Language select hover grow effect */
+#lang-select {
+  transition: transform 0.2s ease;
+}
+
+#lang-select:hover {
+  transform: scale(1.05);
+}
+
+/* Theme icon pulse */
+.theme-icon-animate {
+  transition: transform 0.3s ease;
+}
+
+.theme-icon-animate:hover {
+  transform: rotate(20deg) scale(1.1);
+}
