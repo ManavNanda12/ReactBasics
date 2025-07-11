@@ -50,8 +50,6 @@ function App() {
         <ChatBoard />
       </div>
 
-
-
       <Footer />
       <ScrollToTop />
     </div>

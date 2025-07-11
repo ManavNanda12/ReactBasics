@@ -44,5 +44,11 @@
     "trustedByCommunity": "Trusted by Our Community",
     "happyClients": "Happy Clients",
     "trustedDescription": "Each client represents a conversation that matters. We aim to deliver quick and\nhelpful responses to every message we receive.",
-    "voiceForward": "With {count}+ contact requests so far, your voice truly drives us forward."
+    "voiceForward": "With {count}+ contact requests so far, your voice truly drives us forward.",
+    "supportUs": "Support Us",
+    "supportUsDescription": "Your contributions help us improve and maintain this platform.",
+    "orPayWithCard": "Or pay with card",
+    "enterCardDetails": "Enter card details",
+    "monthlyDonations": "Our Supporters",
+    "monthlyDonationsDescription": "Total Monthly Supporters powering our mission."
   }

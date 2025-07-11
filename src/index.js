@@ -11,18 +11,23 @@ import { AuthProvider } from "./guard/AuthProvider";
 import PrivateRoute from "./guard/PrivateRoute";
 import PublicRoute from "./guard/PublicRoute";
 import * as serviceWorkerRegistration from './serviceworker';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY);
 const Crud = lazy(() => import("./pages/Crud"));
 const CurrencyConverter = lazy(() => import("./pages/CurrencyConverter"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const Login = lazy(() => import("./pages/Login"));
 const Home = lazy(() => import("./pages/Home"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
+const SupportUs = lazy(() => import("./pages/SupportUs"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 serviceWorkerRegistration.register();
 root.render(
   <React.StrictMode>
     <AuthProvider>
     <BrowserRouter>
+    <Elements stripe={stripePromise}>
       <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<App />}>
@@ -31,10 +36,12 @@ root.render(
           <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="currencyconvertor" element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
           <Route path="contactus" element={<PrivateRoute><ContactUs /></PrivateRoute>} />
+          <Route path="supportus" element={<PrivateRoute><SupportUs /></PrivateRoute>} />
           <Route path="*" element={<PublicRoute><PageNotFound /></PublicRoute>} />
         </Route>
       </Routes>
       </Suspense>
+    </Elements>
     </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>

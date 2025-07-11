@@ -7,6 +7,7 @@ import { Paper, Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import bannerLogo from '../assets/images/bannerLogo.png';
 import ContactChart from './ContactChart';
+import DonationChart from './DonationChart';
 
 export default function Home() {
   let { currentTheme, lang } = useContext(HeaderContext);
@@ -64,6 +65,9 @@ export default function Home() {
     <div className="mt-3">
       <ContactChart/>
     </div>
+    <div className="mt-3">
+      <DonationChart/>
+    </div>  
     </>
   )
 }

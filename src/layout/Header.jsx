@@ -79,6 +79,11 @@ export default function Header() {
                       {t("contactUs")}
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className={`nav-link ${currentPath === "/supportus" ? "active" : ""}`} to="/supportus">
+                      {t("supportUs")}
+                    </Link>
+                  </li>
                 </ul>
 
                 {/* Right controls */}
