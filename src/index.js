@@ -32,7 +32,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
-          <Route path="crud" element={<PrivateRoute><Crud /></PrivateRoute>} />
+          <Route path="usermanagement" element={<PrivateRoute><Crud /></PrivateRoute>} />
           <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="currencyconvertor" element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
           <Route path="contactus" element={<PrivateRoute><ContactUs /></PrivateRoute>} />

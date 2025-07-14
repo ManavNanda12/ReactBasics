@@ -71,8 +71,8 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className={`nav-link ${currentPath === "/crud" ? "active" : ""}`} to="/crud">
-                      {t("crud")}
+                    <Link className={`nav-link ${currentPath === "/usermanagement" ? "active" : ""}`} to="/usermanagement">
+                      {t("userManagement")}
                     </Link>
                   </li>
                   <li className="nav-item">

@@ -51,5 +51,6 @@
     "enterCardDetails": "Enter card details",
     "monthlyDonations": "Our Supporters",
     "monthlyDonationsDescription": "Total Monthly Supporters powering our mission.",
-    "logout": "Logout"
+    "logout": "Logout",
+    "userManagement": "User Management"
   }

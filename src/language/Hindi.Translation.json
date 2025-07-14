@@ -52,5 +52,6 @@
     "enterCardDetails": "कार्ड विवरण दाखल करें",
     "monthlyDonations": "हमारे समर्थक",
     "monthlyDonationsDescription": "हमारे मिशन को सशक्त बनाने वाले कुल मासिक समर्थक.",
-    "logout": "लॉगआउट"
+    "logout": "लॉगआउट",
+    "userManagement": "प्रयोक्ता प्रबंधन"
 }
