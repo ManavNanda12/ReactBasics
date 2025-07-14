@@ -1,9 +1,7 @@
 // AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
-import CommonMethods from '../common/CommonMethods';
 
 const AuthContext = createContext();
-const {getMethod} = CommonMethods();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
@@ -30,7 +28,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token'); 
     localStorage.removeItem('name');
     localStorage.removeItem('email');
-    getMethod(`${process.env.REACT_APP_API_URL}/users/logout`);
   };
 
   return (
