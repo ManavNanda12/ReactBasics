@@ -4,7 +4,7 @@ import { HeaderContext } from '../layout/Header';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import CommonMethods from '../common/CommonMethods';
 
 export default function Crud() {
   const [mainForm, setMainForm] = useState({
@@ -15,6 +15,7 @@ export default function Crud() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [userList, setUserList] = useState([]);
+  const { getMethod, postMethod, putMethod } = CommonMethods();
 
   const { currentTheme, lang } = useContext(HeaderContext);
   const [formInputClass, setFormInputClass] = useState("form-group");
@@ -30,7 +31,7 @@ export default function Crud() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/users`);
+      const res = await getMethod(`${process.env.REACT_APP_API_URL}/users`);
       setUserList(res.data);
     } catch (err) {
       console.error(err);
@@ -55,11 +56,11 @@ export default function Crud() {
 
         if (mainForm._id) {
           // Update
-          await axios.put(`${process.env.REACT_APP_API_URL}/users/${mainForm._id}`, mainForm);
+          await putMethod(`${process.env.REACT_APP_API_URL}/users/${mainForm._id}`, mainForm);
           toast("User updated successfully.");
         } else {
           // Add
-          await axios.post(`${process.env.REACT_APP_API_URL}/users/add`, mainForm);
+          await postMethod(`${process.env.REACT_APP_API_URL}/users/add`, mainForm);
           toast("User added successfully.");
         }
 

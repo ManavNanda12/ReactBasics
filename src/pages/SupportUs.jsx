@@ -11,10 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useStripe, useElements, CardElement ,PaymentRequestButtonElement} from '@stripe/react-stripe-js';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../common/loader';
-import '../assets/designfiles/Donation.css'; // include animation CSS if needed
+import '../assets/designfiles/Donation.css';
+import CommonMethods from '../common/CommonMethods';
 
 export default function SupportUs() {
   const { t } = useTranslation();
@@ -24,10 +24,11 @@ export default function SupportUs() {
   const [paymentRequest, setPaymentRequest] = useState(null);
   const [loading, setLoading] = useState(false);
   const [donationForm, setDonationForm] = useState({
-    name: '',
+    name: localStorage.getItem('name'),
     amount: '',
     message: ''
   });
+  const { postMethod } = CommonMethods();
 
   const theme = createTheme({
     palette: { mode: currentTheme }
@@ -46,14 +47,14 @@ export default function SupportUs() {
 
     const payload = {
       name: donationForm.name,
-      email: localStorage.getItem('userEmail'),
+      email: localStorage.getItem('email'),
       amount: Number(donationForm.amount),
       message: donationForm.message,
     };
 
     try {
       setLoading(true);
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/payment/create-payment-intent`, payload);
+      const res = await postMethod(`${process.env.REACT_APP_API_URL}/payment/create-payment-intent`, payload);
 
       const result = await stripe.confirmCardPayment(res.data.clientSecret, {
         payment_method: { card: cardElement },
@@ -62,7 +63,7 @@ export default function SupportUs() {
       if (result.error) {
         toast.error(result.error.message);
       } else if (result.paymentIntent?.status === 'succeeded') {
-        await axios.post(`${process.env.REACT_APP_API_URL}/payment/confirm`, {
+        await postMethod(`${process.env.REACT_APP_API_URL}/payment/confirm`, {
           paymentId: result.paymentIntent.id,
           paymentIntent: result.paymentIntent
         });

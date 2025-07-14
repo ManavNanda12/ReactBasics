@@ -9,10 +9,12 @@ import { HeaderContext } from '../layout/Header';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import CommonMethods from '../common/CommonMethods';
 
 export default function CrudList({ UserData = [], setUserForm, fetchUsers }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const { deleteMethod } = CommonMethods();
 
   const { currentTheme } = useContext(HeaderContext);
   const darkTheme = createTheme({ palette: { mode: currentTheme } });
@@ -30,7 +32,7 @@ export default function CrudList({ UserData = [], setUserForm, fetchUsers }) {
 
   const deleteUser = async (user) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/users/${user._id}`);
+      await deleteMethod(`${process.env.REACT_APP_API_URL}/users/${user._id}`);
       toast.success("User deleted");
       fetchUsers(); // Refresh list from DB
     } catch (err) {

@@ -52,3 +52,16 @@
 .theme-icon-animate:hover {
   transform: rotate(20deg) scale(1.1);
 }
+
+/* logout button styling */
+.logout-animate {
+  transition: all 0.3s ease;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.logout-animate:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: scale(1.05);
+}

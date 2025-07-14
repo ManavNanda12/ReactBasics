@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "./common/ScrollToTop";
 import Footer from "./layout/Footer";
 import ChatBoard from "./pages/ChatBoard";
-import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const getInitialTheme = () => {
@@ -15,23 +14,10 @@ function App() {
   };
   const [currentTheme, setCurrentTheme] = useState(getInitialTheme);
   const [lang, setLang] = useState(localStorage.getItem("lang") || "en");
-  const getClientId = () => {
-    const localKey = 'my_unique_user_id';
-    let clientId = localStorage.getItem(localKey);
-    if (!clientId) {
-      clientId = uuidv4();
-      localStorage.setItem(localKey, clientId);
-    }
-    return clientId;
-  }
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", currentTheme);
     localStorage.setItem("theme", currentTheme);
   }, [currentTheme]);
-
-  useEffect(() => {
-    const clientId = getClientId();
-  }, []);
 
   return (
     <HeaderContext.Provider

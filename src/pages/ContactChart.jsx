@@ -9,18 +9,19 @@ import {
 } from '@mui/material';
 import { HeaderContext } from '../layout/Header';
 import '../assets/designfiles/Banner.css';
-import axios from 'axios';
 import Loader from '../common/loader';
 import { useTranslation } from 'react-i18next';
+import CommonMethods from '../common/CommonMethods';
 
 export default function ContactChart() {
     const { currentTheme } = useContext(HeaderContext);
     const theme = createTheme({ palette: { mode: currentTheme } });
+    const { getMethod } = CommonMethods();
     const [data, setData] = useState([]);
     const { t } = useTranslation();
     const fetchContactedUsers = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/contactedUsers/get`);
+            const res = await getMethod(`${process.env.REACT_APP_API_URL}/contactedUsers/get`);
             if (res.data.length > 0) {
                 let contactData = {
                     name: t('contactedUsers'),

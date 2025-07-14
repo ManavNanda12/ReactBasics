@@ -8,12 +8,14 @@ import { HeaderContext } from '../layout/Header';
 import { motion, AnimatePresence } from 'framer-motion';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 import '../assets/designfiles/ChatBoard.css';
+import { useLocation } from 'react-router-dom'; 
+import CommonMethods from '../common/CommonMethods';
 
 export default function ChatBoard() {
   const { currentTheme } = useContext(HeaderContext);
   const theme = createTheme({ palette: { mode: currentTheme } });
+  const { getMethod , postMethod} = CommonMethods();
 
   const [isChatBoxOpen, setChatBoxOpen] = useState(false);
   const [chatData, setChatData] = useState([]);
@@ -31,7 +33,7 @@ export default function ChatBoard() {
 
   const fetchChatData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/ai/get/${clientId}`);
+      const res = await getMethod(`${process.env.REACT_APP_API_URL}/ai/get/${clientId}`);
       setChatData(res.data);
     } catch (error) {
       console.log(error);
@@ -55,7 +57,7 @@ export default function ChatBoard() {
       setChatData(prev => [...prev, tempUserMessage]);
       setNewMessage('');
       setIsAiResponsding(true);
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/ai/chat`, {
+      const res = await postMethod(`${process.env.REACT_APP_API_URL}/ai/chat`, {
         message: newMessage,
         uniqueUserId: clientId
       });
@@ -94,7 +96,12 @@ export default function ChatBoard() {
     }
   }, [isChatBoxOpen]);
 
+  const currentRoute = useLocation();
+  const currentPath = currentRoute.pathname;
+
   return (
+    <>
+    {currentPath === "/login" ? null : (
     <ThemeProvider theme={theme}>
       <Box>
         {/* Floating Button */}
@@ -283,5 +290,7 @@ export default function ChatBoard() {
         </AnimatePresence>
       </Box>
     </ThemeProvider>
+    )}
+    </>
   );
 }

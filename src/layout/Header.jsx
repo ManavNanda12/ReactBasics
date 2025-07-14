@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import "../assets/designfiles/Header.css";
+import CommonMethods from "../common/CommonMethods";
 
 export const HeaderContext = createContext();
 
@@ -33,6 +34,11 @@ export default function Header() {
   useEffect(() => {
     i18n.changeLanguage(lang);
   }, [lang]);
+
+  const { logout } = CommonMethods();
+  const signOut = () =>{
+    logout();
+  }
 
   return (
     <>
@@ -88,6 +94,13 @@ export default function Header() {
 
                 {/* Right controls */}
                 <div className="d-flex align-items-center">
+                  <button
+                    onClick={signOut}
+                    className="btn btn-outline-danger logout-animate me-2"
+                    type="button"
+                  >
+                    {t("logout")}
+                  </button>
                   <FormControl size="small" sx={{ minWidth: 120 }}>
                     <Select
                       id="lang-select"

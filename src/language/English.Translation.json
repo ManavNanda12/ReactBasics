@@ -50,5 +50,6 @@
     "orPayWithCard": "Or pay with card",
     "enterCardDetails": "Enter card details",
     "monthlyDonations": "Our Supporters",
-    "monthlyDonationsDescription": "Total Monthly Supporters powering our mission."
+    "monthlyDonationsDescription": "Total Monthly Supporters powering our mission.",
+    "logout": "Logout"
   }

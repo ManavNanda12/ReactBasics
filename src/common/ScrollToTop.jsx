@@ -3,10 +3,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { IconButton, Zoom, Box } from '@mui/material';
 import '../assets/designfiles/ScrollToTop.css';
+import { useLocation } from 'react-router-dom';
 
 export default function ScrollToTop() {
   const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
+  const currentRoute = useLocation();
+  const currentPath = currentRoute.pathname;
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,6 +31,8 @@ export default function ScrollToTop() {
   };
 
   return (
+    <>
+    {currentPath === "/login" ? null : (
     <Zoom in={visible}>
       <Box className="scroll-to-top bounce">
         <IconButton color="primary" onClick={scrollTo}>
@@ -35,5 +40,7 @@ export default function ScrollToTop() {
         </IconButton>
       </Box>
     </Zoom>
+    )}
+    </>
   );
 }

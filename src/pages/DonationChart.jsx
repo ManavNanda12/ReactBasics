@@ -12,23 +12,24 @@ import {
     Tooltip,
     Bar
 } from 'recharts';
-import axios from 'axios';
 import Loader from '../common/loader';
 import '../assets/designfiles/Banner.css';
-
+import CommonMethods from '../common/CommonMethods';
 export default function DonationChart() {
     const { currentTheme } = useContext(HeaderContext);
     const theme = createTheme({ palette: { mode: currentTheme } });
     const { t } = useTranslation();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const { getMethod } = CommonMethods();
 
     const fetchDonations = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/payment/donations`);
+            const res = await getMethod(`${process.env.REACT_APP_API_URL}/payment/donations`);
+            const donations = res.data.donations.filter(x=>x.paymentStatus === "succeeded");   
             const groupedByMonth = {};
-            res.data.donations.forEach((donation) => {
+            donations.forEach((donation) => {
                 const month = new Date(donation.createdAt).toLocaleString('default', {
                     month: 'short',
                     year: 'numeric'
@@ -75,15 +76,15 @@ export default function DonationChart() {
                         <Box>
                             <Typography variant="h5" fontWeight="bold" textAlign="center" gutterBottom>
                                 {t('monthlyDonations')}
-                                <Typography variant="h6" color="text.secondary">
-                                    {t('monthlyDonationsDescription')}
-                                </Typography>
+                            </Typography>
+                            <Typography variant="h6" color="text.secondary" textAlign="center" gutterBottom>
+                                {t('monthlyDonationsDescription')}
                             </Typography>
 
                             <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+                                <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }} stackOffset='wiggle'>
                                     <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="month" />
+                                    <XAxis dataKey="month" reversed />
                                     <YAxis
                                         tickFormatter={(val) => `$${val / 1000}k`}
                                         width={60}

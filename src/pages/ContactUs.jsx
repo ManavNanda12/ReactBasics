@@ -13,12 +13,14 @@ import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import Loader from '../common/loader';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import CommonMethods from '../common/CommonMethods';
+
 export default function ContactUs() {
   const { t } = useTranslation();
   const { currentTheme } = useContext(HeaderContext);
   const [loading, setLoading] = useState(false);
   const theme = createTheme({ palette: { mode: currentTheme } });
+  const { postMethod } = CommonMethods();
 
   const {
     register,
@@ -38,7 +40,7 @@ export default function ContactUs() {
       title: data.title || 'Contact Request'
     };
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/contactedUsers/add`, contactData);
+      const res = await postMethod(`${process.env.REACT_APP_API_URL}/contactedUsers/add`, contactData);
       if(res.success){
         emailjs.send(
           'service_az3inmz',

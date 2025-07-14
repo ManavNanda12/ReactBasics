@@ -3,6 +3,7 @@ import { Box, Container, Paper, TextField, Button, Typography, Alert } from '@mu
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../guard/AuthProvider';
 import { toast } from 'react-toastify';
+import CommonMethods from '../common/CommonMethods';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { postMethod } = CommonMethods();
 
   const handleChange = (e) => {
     setFormData({
@@ -32,11 +34,24 @@ export default function Login() {
       if (!emailRegex.test(formData.email)) {
         throw new Error('Please enter a valid email address');
       }
-      localStorage.setItem('userEmail', formData.email);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setAuthData.login(formData.email, 'token');
-      toast("Login successful.");
-      navigate('/');
+      let user = {
+        email: formData.email,
+        password: formData.password
+      };
+      let response = await postMethod(`${process.env.REACT_APP_API_URL}/users/login`, user);
+      console.log(response);
+      if(response.data.success){
+        console.log(response.data);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('name',  response.data.user.name);
+        localStorage.setItem('email', response.data.user.email);
+        setAuthData.login(response.data.token, 'token');
+        toast("Login successful.");
+        navigate('/');
+      }
+      else{
+        toast.error(response.data.message);
+      }
     } catch (err) {
       setError(err.message);
       toast("Login failed.");
@@ -52,8 +67,9 @@ export default function Login() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          minHeight: '100vh',
           justifyContent: 'center',
+          minHeight: '100dvh',
+          overflow: 'hidden'
         }}
       >
         <Paper
