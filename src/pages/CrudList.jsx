@@ -15,6 +15,7 @@ export default function CrudList({ UserData = [], setUserForm, fetchUsers }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const { deleteMethod } = CommonMethods();
+  const loggedInEmail = localStorage.getItem('email');
 
   const { currentTheme } = useContext(HeaderContext);
   const darkTheme = createTheme({ palette: { mode: currentTheme } });
@@ -101,6 +102,7 @@ export default function CrudList({ UserData = [], setUserForm, fetchUsers }) {
                           color="error"
                           size="small"
                           onClick={() => deleteUser(user)}
+                          disabled={user.email === loggedInEmail}
                         >
                           {t("delete")}
                         </Button>

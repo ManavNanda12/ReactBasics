@@ -95,7 +95,7 @@ export default function Crud() {
 
           <div className="form-group">
             <label htmlFor="email">{t("email")}</label>
-            <input type="text" className='form-control' id="email" placeholder={t("enterEmail")}
+            <input type="text" className='form-control' id="email" placeholder={t("enterEmail")} disabled={mainForm._id !== null}
               value={mainForm.email} onChange={(e) => setMainForm({ ...mainForm, email: e.target.value })} />
             {submitted && !mainForm.email && <span className='text-danger'>{t("emailRequired")}</span>}
           </div>

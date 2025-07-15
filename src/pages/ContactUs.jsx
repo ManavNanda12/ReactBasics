@@ -14,6 +14,7 @@ import emailjs from 'emailjs-com';
 import Loader from '../common/loader';
 import { toast } from 'react-toastify';
 import CommonMethods from '../common/CommonMethods';
+import LocationMap from './LocationMap';
 
 export default function ContactUs() {
   const { t } = useTranslation();
@@ -41,54 +42,59 @@ export default function ContactUs() {
     };
     try {
       const res = await postMethod(`${process.env.REACT_APP_API_URL}/contactedUsers/add`, contactData);
-      if(res.success){
-        emailjs.send(
-          'service_az3inmz',
-          'template_zrr4ais',
-          contactData,
-          'FtmuxWM4nlEWwWmX7'
-        )
-        .then((result) => {
-          toast("Thank you! We'll get back to you soon.");
-          setTimeout(() => {
-            const replyData = {
-              name: data.name,
-              email: data.email,
-              title: data.title || 'Contact Request'
-            };
-            replyToCustomer(replyData);
-          }, 5000);
-          reset();
-          setLoading(false);
-        })
-        .catch((error) => {
-          toast("Failed to send email.");
-          setLoading(false);
-        });
+      if(res.data.success){
+        toast("Thank you! We'll get back to you soon.");
+        reset();
+        setLoading(false);
+        // emailjs.send(
+        //   'service_az3inmz',
+        //   'template_zrr4ais',
+        //   contactData,
+        //   'FtmuxWM4nlEWwWmX7'
+        // )
+        // .then((result) => {
+        //   toast("Thank you! We'll get back to you soon.");
+        //   setTimeout(() => {
+        //     const replyData = {
+        //       name: data.name,
+        //       email: data.email,
+        //       title: data.title || 'Contact Request'
+        //     };
+        //     replyToCustomer(replyData);
+        //   }, 5000);
+        //   reset();
+        //   setLoading(false);
+        // })
+        // .catch((error) => {
+        //   toast("Failed to send email.");
+        //   setLoading(false);
+        // });
       }
       else{
         toast.error(res.data.message);
-        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       toast.error("Failed to send email.");
     }
+    finally{
+      setLoading(false);
+    }
   };
   
-  const replyToCustomer = (replyData) => {
-    emailjs.send(
-      'service_az3inmz',
-      'template_v6eh9oq',
-      replyData,
-      'FtmuxWM4nlEWwWmX7'
-    )
-    .then((result) => {
-    })
-    .catch((error) => {
-      console.error("❌ Auto-reply failed:", error.text);
-    });
-  };
+  // const replyToCustomer = (replyData) => {
+  //   emailjs.send(
+  //     'service_az3inmz',
+  //     'template_v6eh9oq',
+  //     replyData,
+  //     'FtmuxWM4nlEWwWmX7'
+  //   )
+  //   .then((result) => {
+  //   })
+  //   .catch((error) => {
+  //     console.error("❌ Auto-reply failed:", error.text);
+  //   });
+  // };
   
   return (
     <ThemeProvider theme={theme}>
@@ -168,6 +174,7 @@ export default function ContactUs() {
         </Button>
       </Box>
     )}
+    <LocationMap />
     </ThemeProvider>
   );
 }
