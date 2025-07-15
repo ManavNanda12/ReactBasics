@@ -90,6 +90,11 @@ export default function Header() {
                       {t("supportUs")}
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className={`nav-link ${currentPath === "/videocall" ? "active" : ""}`} to="/videocall">
+                      {t("videoCall")}
+                    </Link>
+                  </li>
                 </ul>
 
                 {/* Right controls */}

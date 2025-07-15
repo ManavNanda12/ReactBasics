@@ -55,5 +55,9 @@
     "userManagement": "User Management",
     "whereYouCanFindUs": "Where You Can Find Us",
     "mapDescription": "We’re globally available and expanding our presence in India and beyond. Use the map to find us or reach out directly.",
-    "visitUs": "We're here. Come say hi!"
+    "visitUs": "We're here. Come say hi!",
+    "videoCall": "Video Call",
+    "startCall": "Start Call",
+    "localVideo": "Local Video",
+    "remoteVideo": "Remote Video"
   }

@@ -21,6 +21,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Home = lazy(() => import("./pages/Home"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const SupportUs = lazy(() => import("./pages/SupportUs"));
+const VideoCall = lazy(() => import("./pages/VideoCall"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 serviceWorkerRegistration.register();
 root.render(
@@ -37,6 +38,7 @@ root.render(
           <Route path="currencyconvertor" element={<PrivateRoute><CurrencyConverter /></PrivateRoute>} />
           <Route path="contactus" element={<PrivateRoute><ContactUs /></PrivateRoute>} />
           <Route path="supportus" element={<PrivateRoute><SupportUs /></PrivateRoute>} />
+          <Route path="videocall" element={<PrivateRoute><VideoCall /></PrivateRoute>} />
           <Route path="*" element={<PublicRoute><PageNotFound /></PublicRoute>} />
         </Route>
       </Routes>
