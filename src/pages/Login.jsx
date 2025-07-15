@@ -45,6 +45,7 @@ export default function Login() {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('name',  response.data.user.name);
         localStorage.setItem('email', response.data.user.email);
+        localStorage.setItem('userId', response.data.user._id);
         setAuthData.login(response.data.token, 'token');
         toast("Login successful.");
         navigate('/');
