@@ -90,6 +90,7 @@ export default function VideoCall() {
       console.warn("❌ Invalid user selected for call");
       return;
     }
+    
 
     setSelectedUser(user);
     targetUserRef.current = user._id;
